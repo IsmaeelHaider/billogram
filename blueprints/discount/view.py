@@ -14,8 +14,8 @@ def discount_code():
     response = {}
     if request.method == "GET":
         brand_id = request.args.get('brand_id', None)
+        user_id = request.args.get('customer_id', None)  # TODO: Should get this id from JWT token but for simplicity I'm just hardcoding it
         if brand_id:
-            user_id = 1  # Should get this id from JWT token but for simplicity I'm just hardcoding it
             response = DiscountVoucher.get_new_discount_voucher(user_id=user_id, brand_id=brand_id)
         else:
             response = {"error": "Please provide 'brand_id'"}

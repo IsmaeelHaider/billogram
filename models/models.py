@@ -36,6 +36,11 @@ class DiscountVoucher(db.Model, ModelMixins):
         :param user_id:
         :return: dict: details of vouchers
         """
+        got_discount_already = cls.query.filter_by(customer_id=user_id, brand_id=brand_id).first()
+
+        if got_discount_already:
+            return {"error": "Already got discount code"}
+
         voucher = cls.query.filter(cls.expiry_date > datetime.utcnow()).filter_by(customer_id=None,
                                                                                   is_active=True,
                                                                                   is_used=False,
@@ -45,6 +50,7 @@ class DiscountVoucher(db.Model, ModelMixins):
             voucher.save()
             voucher_dict = voucher.to_dict()
             voucher_dict['code'] = voucher_dict.pop('id')
+            # TODO: Notify brand for new user joined loyalty program.
             return voucher_dict
         else:
             return {"error": "No vouchers available"}
