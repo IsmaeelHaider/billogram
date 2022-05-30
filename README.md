@@ -7,7 +7,9 @@ Install docker. To install docker follow the following documentation
 https://docs.docker.com/engine/install/
 
 ### To run the solution use the following command
-
+    
+    git clone https://github.com/IsmaeelHaider/billogram.git
+    cd billogram
     docker compose up
 
   

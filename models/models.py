@@ -50,7 +50,7 @@ class DiscountVoucher(db.Model, ModelMixins):
             voucher.save()
             voucher_dict = voucher.to_dict()
             voucher_dict['code'] = voucher_dict.pop('id')
-            # TODO: Notify brand for new user joined loyalty program.
+            # TODO: Notify brand for new user joined loyalty program using async task like celery.
             return voucher_dict
         else:
             return {"error": "No vouchers available"}
